@@ -31,9 +31,9 @@ install_fdkaac(){
 
   mkdir -p ${LIB_DIR}
   pushd ${LIB_DIR}
-  [[ ! -s ${SRC} ]] && wget -c ${SRC_URL} -O ${SRC}
+  [[ ! -s ${SRC} ]] && wget --no-check-certificate -c ${SRC_URL} -O ${SRC}
   if ! (echo "${SRC_MD5SUM} ${SRC}" | md5sum --check) ; then
-    rm -f ${SRC} && wget -c ${SRC_URL} -O ${SRC} # try download again
+    rm -f ${SRC} && wget --no-check-certificate -c ${SRC_URL} -O ${SRC} # try download again
     (echo "${SRC_MD5SUM} ${SRC}" | md5sum --check) || (echo "Downloaded file ${SRC} is corrupted." && return 1)
   fi
   rm -fr fdk-aac-${VERSION}
@@ -57,7 +57,7 @@ install_ffmpeg(){
 
   mkdir -p ${LIB_DIR}
   pushd ${LIB_DIR}
-  [[ ! -s ${SRC} ]] && wget -c ${SRC_URL}
+  [[ ! -s ${SRC} ]] && wget --no-check-certificate -c ${SRC_URL}
   if ! (echo "${SRC_MD5SUM} ${SRC}" | md5sum --check) ; then
       echo "Downloaded file ${SRC} is corrupted."
       rm -v ${SRC}
@@ -84,7 +84,7 @@ install_zlib() {
     pushd $LIB_DIR >/dev/null
     rm -rf zlib-*
     rm -f ./build/lib/zlib.*
-    wget -c https://zlib.net/zlib-${VERSION}.tar.gz
+    wget --no-check-certificate -c https://zlib.net/zlib-${VERSION}.tar.gz
     tar -zxf zlib-${VERSION}.tar.gz
     pushd zlib-${VERSION} >/dev/null
     ./configure --prefix=$PREFIX_DIR
@@ -106,7 +106,7 @@ install_libnice0114(){
     cd $LIB_DIR
     rm -f ./build/lib/libnice.*
     rm -rf libnice-0.1.*
-    wget -c http://nice.freedesktop.org/releases/libnice-0.1.14.tar.gz
+    wget --no-check-certificate -c http://nice.freedesktop.org/releases/libnice-0.1.14.tar.gz
     tar -zxvf libnice-0.1.14.tar.gz
     cd libnice-0.1.14
     #patch -p1 < $PATHNAME/patches/libnice-0114.patch
@@ -157,7 +157,7 @@ install_openssl(){
     rm -f ./build/lib/libcrypto.*
     rm -rf openssl-1*
 
-    wget -c https://www.openssl.org/source/openssl-${SSL_VERSION}.tar.gz
+    wget --no-check-certificate -c https://www.openssl.org/source/openssl-${SSL_VERSION}.tar.gz
     tar xf openssl-${SSL_VERSION}.tar.gz
     cd openssl-${SSL_VERSION}
     ./config no-ssl3 --prefix=$PREFIX_DIR -fPIC
@@ -303,7 +303,7 @@ install_quic(){
   mkdir $ROOT/third_party/quic-lib
 
   pushd ${ROOT}/third_party/quic-lib
-  wget https://github.com/open-webrtc-toolkit/owt-deps-quic/releases/download/v0.1/dist.tgz
+  wget --no-check-certificate https://github.com/open-webrtc-toolkit/owt-deps-quic/releases/download/v0.1/dist.tgz
   tar xzf dist.tgz
   popd
 }
@@ -406,7 +406,7 @@ install_usrsctp() {
 
     cd $LIB_DIR
     rm -rf usrsctp
-    wget -c ${USRSCTP_URL}
+    wget --no-check-certificate -c ${USRSCTP_URL}
     tar -zxvf ${USRSCTP_FILE}
     mv ${USRSCTP_EXTRACT} usrsctp
     rm ${USRSCTP_FILE}
@@ -425,7 +425,7 @@ install_glib() {
   if [ -d $LIB_DIR ]; then
     local VERSION="2.54.1"
     cd $LIB_DIR
-    wget -c https://github.com/GNOME/glib/archive/${VERSION}.tar.gz -O glib-${VERSION}.tar.gz
+    wget --no-check-certificate -c https://github.com/GNOME/glib/archive/${VERSION}.tar.gz -O glib-${VERSION}.tar.gz
 
     tar -xvzf glib-${VERSION}.tar.gz ;cd glib-${VERSION}
     ./autogen.sh --enable-libmount=no --prefix=${PREFIX_DIR}
