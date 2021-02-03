@@ -128,7 +128,7 @@ install_libnice014(){
     cd $LIB_DIR
     rm -f ./build/lib/libnice.*
     rm -rf libnice-0.1.*
-    wget -c http://nice.freedesktop.org/releases/libnice-0.1.4.tar.gz
+    wget --no-check-certificate  -c http://nice.freedesktop.org/releases/libnice-0.1.4.tar.gz
     tar -zxvf libnice-0.1.4.tar.gz
     cd libnice-0.1.4
     patch -p1 < $PATHNAME/patches/libnice014-agentlock.patch
@@ -186,14 +186,14 @@ install_openh264(){
   cd $ROOT/third_party/openh264
 
   # license
-  wget https://www.openh264.org/BINARY_LICENSE.txt
+  wget --no-check-certificate https://www.openh264.org/BINARY_LICENSE.txt
 
   SOURCE=v${MAJOR}.${MINOR}.0.tar.gz
   BINARY=libopenh264-${MAJOR}.${MINOR}.0-linux64.${SOVER}.so
 
   # download
-  wget https://github.com/cisco/openh264/archive/${SOURCE}
-  wget -c https://github.com/cisco/openh264/releases/download/v${MAJOR}.${MINOR}.0/${BINARY}.bz2
+  wget --no-check-certificate https://github.com/cisco/openh264/archive/${SOURCE}
+  wget --no-check-certificate  -c https://github.com/cisco/openh264/releases/download/v${MAJOR}.${MINOR}.0/${BINARY}.bz2
 
   # api
   tar -zxf ${SOURCE} openh264-${MAJOR}.${MINOR}.0/codec/api
@@ -223,7 +223,7 @@ install_libexpat() {
     pushd ${LIB_DIR} >/dev/null
     rm -rf expat-*
     rm -f ./build/lib/libexpat.*
-    wget -c $DURL
+    wget --no-check-certificate -c $DURL
     tar jxf expat-${VERSION}.tar.bz2
     pushd expat-${VERSION} >/dev/null
     ./configure --prefix=${PREFIX_DIR} --with-docbook --without-xmlwf
@@ -440,7 +440,7 @@ install_gcc(){
   if [ -d $LIB_DIR ]; then
     local VERSION="4.8.4"
     cd $LIB_DIR
-    wget -c http://ftp.gnu.org/gnu/gcc/gcc-${VERSION}/gcc-${VERSION}.tar.bz2
+    wget --no-check-certificate -c http://ftp.gnu.org/gnu/gcc/gcc-${VERSION}/gcc-${VERSION}.tar.bz2
 
     tar jxf gcc-${VERSION}.tar.bz2 ;cd gcc-${VERSION}
     ./contrib/download_prerequisites
